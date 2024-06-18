@@ -1,6 +1,7 @@
 import redis from 'redis'
 import { promisify } from 'util'
 
+
 class RedisClient {
   constructor() {
     this.client = redis.createClient()
@@ -9,16 +10,13 @@ class RedisClient {
       console.log(`Redis client not connected ${error.message}`)
     })
   }
-
   isAlive() {
     return this.client.connected
   }
-
   async get(key) {
     const value = await this.getAsync(key)
     return value
   }
-
   async set(key, value, duration) {
     this.client.setex(key, duration, value)
   }
